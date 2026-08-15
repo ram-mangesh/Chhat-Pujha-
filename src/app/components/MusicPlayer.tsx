@@ -19,6 +19,7 @@ export default function MusicPlayer() {
   const [showPlaylist, setShowPlaylist] = useState(false);
   const [songProgress, setSongProgress] = useState(0);
   const [videoData, setVideoData] = useState<any>(null);
+  const [hasUserInteracted, setHasUserInteracted] = useState(false);
 
   const playerRef = useRef<any>(null);
   const progressInterval = useRef<ReturnType<typeof setInterval> | null>(null);
@@ -72,11 +73,6 @@ export default function MusicPlayer() {
             listType: "playlist",
             index: 0,
           });
-          setTimeout(() => {
-            event.target.setVolume(100);
-            event.target.unMute();
-            event.target.playVideo();
-          }, 500);
         },
         onStateChange: (event: any) => {
           if (event.data === window.YT.PlayerState.PLAYING) {
@@ -128,8 +124,16 @@ export default function MusicPlayer() {
   };
 
   const handlePlay = () => {
-    if (playerRef.current?.playVideo) playerRef.current.playVideo();
-    if (playerRef.current?.unMute) playerRef.current.unMute();
+    if (!hasUserInteracted) {
+      setHasUserInteracted(true);
+      if (playerRef.current?.unMute) playerRef.current.unMute();
+      if (playerRef.current?.setVolume) playerRef.current.setVolume(100);
+      setTimeout(() => {
+        if (playerRef.current?.playVideo) playerRef.current.playVideo();
+      }, 200);
+    } else {
+      if (playerRef.current?.playVideo) playerRef.current.playVideo();
+    }
   };
 
   const handlePause = () => {
