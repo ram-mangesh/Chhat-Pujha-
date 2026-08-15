@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   title: "Chhath Vibes - Chhath Songs on repeat.",
   description: "Classic Chhath Puja banger that plays during Chhath Puja. Full Cultural Vibes.",
   applicationName: "Chhath Vibes - Chhath Songs on repeat.",
-  author: "Chhath Vibes - Chhath Songs on repeat.",
+  authors: [{ name: "Chhath Vibes - Chhath Songs on repeat." }],
   keywords: ["Chhath Puja songs", "chhath puja playlist", "chhath playlist", "sharda sinha chhath songs"],
   robots: "index, follow",
   openGraph: {
