@@ -63,7 +63,7 @@ export default function MusicPlayer() {
         playsinline: 1,
         cc_load_policy: 0,
         iv_load_policy: 3,
-        mute: 1,
+        mute: 0,
       },
       events: {
         onReady: (event: any) => {
@@ -158,6 +158,27 @@ export default function MusicPlayer() {
     <>
       {/* Hidden YouTube Player */}
       <div id="youtube-player" className="fixed -top-9999 left-0"></div>
+
+      {/* Tap to unmute overlay */}
+      {!hasUserInteracted && isReady && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/70 cursor-pointer" onClick={() => {
+          setHasUserInteracted(true);
+          if (playerRef.current?.unMute) playerRef.current.unMute();
+          if (playerRef.current?.setVolume) playerRef.current.setVolume(volume);
+          if (playerRef.current?.playVideo) playerRef.current.playVideo();
+        }}>
+          <div className="text-center">
+            <button className="h-20 w-20 rounded-full bg-white/20 flex items-center justify-center mx-auto mb-4 border-2 border-white/40 hover:bg-white/30 transition-all">
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-10 w-10 text-white ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
+                <path strokeLinecap="round" strokeLinejoin="round" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+            </button>
+            <p className="text-white text-lg font-semibold">Tap to enable sound</p>
+            <p className="text-white/60 text-sm mt-2">Songs already playing</p>
+          </div>
+        </div>
+      )}
 
       {/* Playlist Modal */}
       {showPlaylist && (
