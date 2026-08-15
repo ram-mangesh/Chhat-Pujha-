@@ -59,6 +59,9 @@ export default function MusicPlayer() {
         modestbranding: 1,
         rel: 0,
         fs: 0,
+        playsinline: 1,
+        cc_load_policy: 0,
+        iv_load_policy: 3,
       },
       events: {
         onReady: (event: any) => {
@@ -69,8 +72,9 @@ export default function MusicPlayer() {
             index: 0,
           });
           setTimeout(() => {
+            event.target.setVolume(100);
             event.target.playVideo();
-          }, 1000);
+          }, 500);
         },
         onStateChange: (event: any) => {
           if (event.data === window.YT.PlayerState.PLAYING) {
