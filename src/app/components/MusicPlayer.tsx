@@ -62,7 +62,7 @@ export default function MusicPlayer() {
         playsinline: 1,
         cc_load_policy: 0,
         iv_load_policy: 3,
-        mute: 0,
+        mute: 1,
       },
       events: {
         onReady: (event: any) => {
@@ -73,9 +73,8 @@ export default function MusicPlayer() {
             index: 0,
           });
           setTimeout(() => {
-            if (playerRef.current?.setVolume) {
-              playerRef.current.setVolume(100);
-            }
+            event.target.setVolume(100);
+            event.target.unMute();
             event.target.playVideo();
           }, 500);
         },
@@ -131,7 +130,6 @@ export default function MusicPlayer() {
   const handlePlay = () => {
     if (playerRef.current?.playVideo) playerRef.current.playVideo();
     if (playerRef.current?.unMute) playerRef.current.unMute();
-    if (playerRef.current?.setVolume) playerRef.current.setVolume(volume);
   };
 
   const handlePause = () => {
