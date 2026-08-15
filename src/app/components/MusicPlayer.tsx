@@ -62,7 +62,7 @@ export default function MusicPlayer() {
         playsinline: 1,
         cc_load_policy: 0,
         iv_load_policy: 3,
-        mute: 1,
+        mute: 0,
       },
       events: {
         onReady: (event: any) => {
@@ -73,6 +73,9 @@ export default function MusicPlayer() {
             index: 0,
           });
           setTimeout(() => {
+            if (playerRef.current?.setVolume) {
+              playerRef.current.setVolume(100);
+            }
             event.target.playVideo();
           }, 500);
         },
