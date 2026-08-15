@@ -53,11 +53,12 @@ export default function MusicPlayer() {
       height: "1",
       width: "1",
       playerVars: {
-        autoplay: 0,
+        autoplay: 1,
         controls: 0,
         enablejsapi: 1,
         modestbranding: 1,
         rel: 0,
+        fs: 0,
       },
       events: {
         onReady: (event: any) => {
@@ -67,6 +68,9 @@ export default function MusicPlayer() {
             listType: "playlist",
             index: 0,
           });
+          setTimeout(() => {
+            event.target.playVideo();
+          }, 1000);
         },
         onStateChange: (event: any) => {
           if (event.data === window.YT.PlayerState.PLAYING) {
